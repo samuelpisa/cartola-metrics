@@ -36,7 +36,7 @@ public class AtletasTest {
         for (int i = 2; i <= 10; i++) {
 
 
-            File arquivo = new File(dir.toString() + "/atletas-rodada-" + i + ".js");
+            File arquivo = new File(dir.toString() + "/atletas-rodada-" + i + ".json");
 
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
@@ -59,7 +59,7 @@ public class AtletasTest {
         Path dir = Paths.get("src", "main", "resources", "atletas");
 
 
-        File arquivo = new File(dir.toString() + "/atletas-rodada-1.js");
+        File arquivo = new File(dir.toString() + "/atletas-rodada-1.json");
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
