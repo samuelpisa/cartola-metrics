@@ -20,7 +20,7 @@ public class CartolaTask {
     @Autowired
     private RodadaRepository rodadaRepo;
 
-    @Scheduled(fixedRate = 1000 * 60 * 3)
+    @Scheduled(fixedRate = 1000 * 60 * 60)
     public void checkMercado() {
         log.info("== Inicio Check de Mercado ==");
 
@@ -28,12 +28,12 @@ public class CartolaTask {
 
         AtletasResponse atletasResponse = callMercadoAtletas();
 
-        Integer rodadaId = atletasResponse.getAtletas().get(0).getRodada_id();
-        log.info("Rodada Atual: {}", rodadaId);
-
         if (mercadoResponse.getStatus_mercado() == 1
-                && mercadoResponse.getRodada_atual() > rodadaId) {
+                && atletasResponse.getAtletas().stream().findFirst().get().getScout() != null) {
             log.info("Mercado Aberto");
+
+            Integer rodadaId = atletasResponse.getAtletas().get(0).getRodada_id();
+            log.info("Rodada Atual: {}", rodadaId);
 
             PartidasResponse partidasResponse = callPartidas(rodadaId);
 

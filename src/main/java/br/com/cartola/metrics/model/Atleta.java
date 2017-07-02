@@ -23,6 +23,11 @@ public class Atleta {
     private Double variacao_num;
     private Double media_num;
     private Integer jogos_num;
+    private Scout scout;
+
+    public Scout getScout() { return scout; }
+
+    public void setScout(Scout scout) { this.scout = scout; }
 
     public String getFoto() {
         return foto;
