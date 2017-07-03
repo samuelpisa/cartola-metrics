@@ -3,7 +3,7 @@ package br.com.cartola.metrics.model;
 public class RodadaClube {
 
     private Integer id;
-    private Integer pontos;
+    private Double pontos;
     private Boolean casa;
     private Boolean valida;
 
@@ -15,11 +15,11 @@ public class RodadaClube {
         this.id = id;
     }
 
-    public Integer getPontos() {
+    public Double getPontos() {
         return pontos;
     }
 
-    public void setPontos(Integer pontos) {
+    public void setPontos(Double pontos) {
         this.pontos = pontos;
     }
 
