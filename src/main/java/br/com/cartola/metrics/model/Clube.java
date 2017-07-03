@@ -3,6 +3,8 @@ package br.com.cartola.metrics.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 /**
  * Created by samuel on 10/06/17.
  */
@@ -14,6 +16,11 @@ public class Clube {
     private String nome;
     private String abreviacao;
     private Escudo escudos;
+    private List<RodadaClube> rodadas;
+
+    public List<RodadaClube> getRodadas() { return rodadas; }
+
+    public void setRodadas(List<RodadaClube> rodadas) { this.rodadas = rodadas; }
 
     public Integer getId() {
         return id;
