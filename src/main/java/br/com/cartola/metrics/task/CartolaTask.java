@@ -21,7 +21,7 @@ public class CartolaTask {
 
     @Scheduled(fixedRate = 1000 * 60 * 60)
     public void checkMercado() {
-        log.info("== Inicio Check de Mercado ==");
+        log.info("= Inicio Check de Mercado =");
 
         MercadoResponse mercadoResponse = callMercado();
         AtletasResponse atletasResponse = callMercadoAtletas();
@@ -36,7 +36,7 @@ public class CartolaTask {
         } else {
             log.info("Mercado Fechado");
         }
-        log.info("== Fim Check de Mercado ==");
+        log.info("= Fim Check de Mercado =");
     }
 
     private MercadoResponse callMercado() {
