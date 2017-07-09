@@ -6,6 +6,7 @@ import br.com.cartola.metrics.model.Rodada;
 import br.com.cartola.metrics.model.RodadaClube;
 import br.com.cartola.metrics.repository.ClubeRepository;
 import br.com.cartola.metrics.repository.RodadaRepository;
+import br.com.cartola.metrics.service.dto.RodadaTotalResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Stream;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import static org.springframework.data.mongodb.core.query.Criteria.where;

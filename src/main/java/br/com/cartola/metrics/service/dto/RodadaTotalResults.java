@@ -1,4 +1,4 @@
-package br.com.cartola.metrics.service;
+package br.com.cartola.metrics.service.dto;
 
 public class RodadaTotalResults {
 

@@ -1,10 +1,9 @@
 package br.com.cartola.metrics.task;
 
-import br.com.cartola.metrics.model.Rodada;
 import br.com.cartola.metrics.model.cartola.AtletasResponse;
 import br.com.cartola.metrics.model.cartola.MercadoResponse;
 import br.com.cartola.metrics.model.cartola.PartidasResponse;
-import br.com.cartola.metrics.repository.RodadaRepository;
+import br.com.cartola.metrics.service.RodadaMercadoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +17,13 @@ public class CartolaTask {
     private static final Logger log = LoggerFactory.getLogger(CartolaTask.class);
 
     @Autowired
-    private RodadaRepository rodadaRepo;
+    private RodadaMercadoService rodadaService;
 
     @Scheduled(fixedRate = 1000 * 60 * 60)
     public void checkMercado() {
         log.info("== Inicio Check de Mercado ==");
 
         MercadoResponse mercadoResponse = callMercado();
-
         AtletasResponse atletasResponse = callMercadoAtletas();
 
         if (mercadoResponse.getStatus_mercado() == 1
@@ -33,20 +31,11 @@ public class CartolaTask {
             log.info("Mercado Aberto");
 
             Integer rodadaId = atletasResponse.getAtletas().get(0).getRodada_id();
-            log.info("Rodada Atual: {}", rodadaId);
-
-            PartidasResponse partidasResponse = callPartidas(rodadaId);
-
-            Rodada rodada = new Rodada();
-            rodada.setAtletas(atletasResponse.getAtletas());
-            rodada.setPartidas(partidasResponse.getPartidas());
-            rodada.setId(rodadaId);
-            rodadaRepo.save(rodada);
+            rodadaService.adicionarRodada(atletasResponse.getAtletas(), callPartidas(rodadaId).getPartidas());
 
         } else {
             log.info("Mercado Fechado");
         }
-
         log.info("== Fim Check de Mercado ==");
     }
 
