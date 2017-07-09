@@ -4,6 +4,7 @@ public class RodadaClube {
 
     private Integer id;
     private Double pontos;
+    private Double pontosCedidos;
     private Boolean casa;
     private Boolean valida;
 
@@ -38,4 +39,8 @@ public class RodadaClube {
     public void setValida(Boolean valida) {
         this.valida = valida;
     }
+
+    public Double getPontosCedidos() { return pontosCedidos; }
+
+    public void setPontosCedidos(Double pontosCedidos) { this.pontosCedidos = pontosCedidos;  }
 }
