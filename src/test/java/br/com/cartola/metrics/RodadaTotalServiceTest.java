@@ -16,6 +16,7 @@ public class RodadaTotalServiceTest {
 
     @Test
     public void testTotalRodada(){
-        rodadaService.totalizarRodada(2);
+
+        rodadaService.totalizarRodada(1);
     }
 }

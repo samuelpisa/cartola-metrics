@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -48,6 +49,17 @@ public class RodadaTotalService {
             rodadaClube.setId(rodadaId);
             rodadaClube.setPontos(rodadaTotal.getTotal());
 
+            adicionaRodada(c, rodadaClube);
+
+            clubeRepo.save(c);
         });
+    }
+
+    private void adicionaRodada(Clube clube, RodadaClube rodada) {
+        if (clube.getRodadas() == null) {
+            clube.setRodadas(new ArrayList<RodadaClube>());
+        }
+        clube.getRodadas().removeIf(i -> Objects.equals(i.getId(), rodada.getId()));
+        clube.getRodadas().add(rodada);
     }
 }
