@@ -17,8 +17,10 @@ public class RodadaTotalServiceTest {
     private RodadaTotalService rodadaService;
 
     @Test
-    public void testTotalRodada(){
+    public void testTotalRodada() {
 
-        rodadaService.totalizarRodada(2);
+        for (int i = 1; i <= 11; i++) {
+            rodadaService.totalizarRodada(i);
+        }
     }
 }
