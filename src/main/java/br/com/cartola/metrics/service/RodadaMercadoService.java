@@ -38,6 +38,9 @@ public class RodadaMercadoService {
 
             totalService.totalizarRodada(rodadaId);
             log.info("Rodada {} totalizada", rodadaId);
+
+            totalService.totalizarClube();
+            log.info("Pontos clube totalizado", rodadaId);
         }
     }
 }

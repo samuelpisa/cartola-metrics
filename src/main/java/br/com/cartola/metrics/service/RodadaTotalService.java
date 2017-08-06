@@ -1,11 +1,9 @@
 package br.com.cartola.metrics.service;
 
-import br.com.cartola.metrics.model.Clube;
-import br.com.cartola.metrics.model.Partida;
-import br.com.cartola.metrics.model.Rodada;
-import br.com.cartola.metrics.model.RodadaClube;
+import br.com.cartola.metrics.model.*;
 import br.com.cartola.metrics.repository.ClubeRepository;
 import br.com.cartola.metrics.repository.RodadaRepository;
+import br.com.cartola.metrics.service.dto.PontosClubeResult;
 import br.com.cartola.metrics.service.dto.RodadaTotalResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -35,7 +33,8 @@ public class RodadaTotalService {
                 match(where("_id").is(rodadaId)),
                 project("atletas"),
                 unwind("atletas"),
-                group("atletas.clube_id").sum("atletas.pontos_num").as("total")
+                group("atletas.clube_id")
+                        .sum("atletas.pontos_num").as("total")
         );
 
         AggregationResults<RodadaTotalResults> groupResults = mongoTemplate.aggregate(agg, Rodada.class, RodadaTotalResults.class);
@@ -60,6 +59,30 @@ public class RodadaTotalService {
 
             clubeRepo.save(c);
         });
+    }
+
+    public void totalizarClube(){
+        Aggregation agg = newAggregation(
+                unwind("rodadas"),
+                match(where("rodadas.valida").is(true)),
+                group("id")
+                        .avg("rodadas.pontos").as("mediaPontos")
+                        .sum("rodadas.pontos").as("totalPontos")
+                        .avg("rodadas.pontosCedidos").as("mediaCedidos")
+                        .sum("rodadas.pontosCedidos").as("totalCedidos")
+        );
+
+        AggregationResults<PontosClubeResult> groupResults = mongoTemplate.aggregate(agg, Clube.class, PontosClubeResult.class);
+        List<PontosClubeResult> results = groupResults.getMappedResults();
+
+        List<Clube> clubes = clubeRepo.findAll();
+
+        clubes.forEach(c -> {
+            PontosClubeResult pc = results.stream().filter(f -> Objects.equals(f.getId(), c.getId())).findFirst().get();
+            c.setPontos(new PontoClube(pc.getMediaPontos(), pc.getTotalPontos(), pc.getMediaCedidos(), pc.getTotalCedidos()));
+            clubeRepo.save(c);
+        });
+
     }
 
     private void adicionaRodada(Clube clube, RodadaClube rodada) {

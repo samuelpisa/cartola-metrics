@@ -19,8 +19,9 @@ public class RodadaTotalServiceTest {
     @Test
     public void testTotalRodada() {
 
+        //rodadaService.totalizarClube();
         for (int i = 1; i <= 11; i++) {
-            rodadaService.totalizarRodada(i);
+            //rodadaService.totalizarRodada(i);
         }
     }
 }

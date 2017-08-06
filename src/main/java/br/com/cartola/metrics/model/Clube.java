@@ -16,6 +16,7 @@ public class Clube {
     private String nome;
     private String abreviacao;
     private Escudo escudos;
+    private PontoClube pontos;
     private List<RodadaClube> rodadas;
 
     public List<RodadaClube> getRodadas() { return rodadas; }
@@ -52,5 +53,13 @@ public class Clube {
 
     public void setEscudos(Escudo escudos) {
         this.escudos = escudos;
+    }
+
+    public PontoClube getPontos() {
+        return pontos;
+    }
+
+    public void setPontos(PontoClube pontos) {
+        this.pontos = pontos;
     }
 }
