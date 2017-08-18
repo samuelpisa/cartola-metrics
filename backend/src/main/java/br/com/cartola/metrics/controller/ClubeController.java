@@ -24,4 +24,5 @@ public class ClubeController {
     private List<Clube> clubes() {
         return clubeRepo.findAll(new Sort(Sort.Direction.DESC, "pontos.mediaPontos"));
     }
+
 }

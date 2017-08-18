@@ -33,3 +33,10 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+src/main/resources/static/dist/
+### node
+etc/
+node/
+node_modules/
+npm-debug.log
