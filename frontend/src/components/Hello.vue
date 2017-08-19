@@ -1,5 +1,8 @@
 <template>
   <div class="hello">
+    <md-toolbar>
+      <h1 class="md-title">My Title</h1>
+    </md-toolbar>
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
     <ul>
