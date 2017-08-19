@@ -34,7 +34,7 @@ dist/
 nbdist/
 .nb-gradle/
 
-src/main/resources/static/dist/
+backend/src/main/resources/static
 ### node
 etc/
 node/
