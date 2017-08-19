@@ -2,7 +2,7 @@
   <div class="ranking">
     <md-card>
       <md-card-header>
-        <div class="md-title">Ranking de clubes por pontuação do Cartola</div>
+        <div class="md-title">Ranking de clubes por pontuação do Cartola FC</div>
       </md-card-header>
       <md-card-content>
         <md-table md-sort="pontos.mediaPontos">
