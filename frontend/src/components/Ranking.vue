@@ -5,14 +5,14 @@
         <div class="md-title">Ranking de clubes por pontuação do Cartola FC</div>
       </md-card-header>
       <md-card-content>
-        <md-table md-sort="pontos.mediaPontos">
+        <md-table md-sort="mediaPontos" @sort="sortBy">
           <md-table-header>
             <md-table-row>
               <md-table-head></md-table-head>
               <md-table-head></md-table-head>
-              <md-table-head class="title-cell" md-sort-by="pontos.mediaPontos">Média de Pontos</md-table-head>
+              <md-table-head class="title-cell" md-sort-by="mediaPontos">Média de Pontos</md-table-head>
               <md-table-head class="title-cell">Total de Pontos</md-table-head>
-              <md-table-head class="title-cell" md-sort-by="pontos.mediaCedidos">Média de Pontos Cedidos</md-table-head>
+              <md-table-head class="title-cell" md-sort-by="mediaCedidos">Média de Pontos Cedidos</md-table-head>
               <md-table-head class="title-cell">Total de Pontos Cedidos</md-table-head>
             </md-table-row>
           </md-table-header>
@@ -37,6 +37,7 @@
   import Vue from 'vue'
   import axios from 'axios'
   import numeral from 'numeral'
+  import _ from 'lodash'
 
   numeral.register('locale', 'pt-BR', {
     delimiters: {
@@ -66,6 +67,11 @@
         .catch(e => {
           this.errors.push(e)
         })
+    },
+    methods: {
+      sortBy (sort) {
+        this.clubes = _.orderBy(this.clubes, [item => item.pontos[sort.name]], sort.type)
+      }
     }
   }
 </script>
