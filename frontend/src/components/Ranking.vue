@@ -65,7 +65,7 @@
       }
     },
     created () {
-      axios.get('http://www.cartola.top/clubes')
+      axios.get('/clubes')
         .then(response => {
           this.clubes = response.data
         })
