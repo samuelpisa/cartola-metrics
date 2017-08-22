@@ -1,11 +1,17 @@
 <template>
   <div class="ranking">
-    <md-card>
-      <md-card-header>
-        <div class="md-title">Ranking de clubes por pontuação do Cartola FC</div>
-      </md-card-header>
-      <md-card-content>
-        <md-table md-sort="mediaPontos" @sort="sortBy">
+    <md-table-card>
+
+      <md-toolbar>
+        <h1 class="md-title">Ranking de clubes por pontuação do Cartola FC</h1>
+        <md-button-toggle md-single class="md-primary">
+          <md-button class="md-toggle">Todos os jogos</md-button>
+          <md-button disabled>Jogos em casa</md-button>
+          <md-button disabled>Jogos Fora</md-button>
+        </md-button-toggle>
+      </md-toolbar>
+
+        <md-table md-sort="mediaPontos" md-sort-type="desc" @sort="sortBy">
           <md-table-header>
             <md-table-row>
               <md-table-head></md-table-head>
@@ -28,8 +34,7 @@
             </md-table-row>
           </md-table-body>
         </md-table>
-      </md-card-content>
-    </md-card>
+    </md-table-card>
   </div>
 </template>
 
@@ -60,7 +65,7 @@
       }
     },
     created () {
-      axios.get('/clubes')
+      axios.get('http://www.cartola.top/clubes')
         .then(response => {
           this.clubes = response.data
         })

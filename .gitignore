@@ -35,10 +35,11 @@ nbdist/
 .nb-gradle/
 
 backend/src/main/resources/static/
+
 ### node
 etc/
 node/
 node_modules/
 npm-debug.log
-/backend/src/main/resources/static/
+
 
