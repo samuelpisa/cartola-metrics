@@ -25,16 +25,21 @@
 
           <md-table-body>
             <template v-for="(clube, index) in clubes">
-              <md-table-row >
+              <md-table-row>
                 <md-table-cell md-numeric>{{index+1}}</md-table-cell>
                 <md-table-cell class="clube-cell"><img :src="clube.escudos.pequeno"/> {{clube.nome}}</md-table-cell>
                 <md-table-cell md-numeric>{{clube.pontos.mediaPontos | formatNumber}}</md-table-cell>
                 <md-table-cell md-numeric>{{clube.pontos.totalPontos | formatNumber}}</md-table-cell>
                 <md-table-cell md-numeric>{{clube.pontos.mediaCedidos | formatNumber}}</md-table-cell>
                 <md-table-cell md-numeric>{{clube.pontos.totalCedidos | formatNumber}}</md-table-cell>
+                <md-table-cell>
+                  <md-button class="md-icon-button md-raised md-dense" @click="selectItem(clube)">
+                    <md-icon class="md-warn">show_chart</md-icon>
+                  </md-button>
+                </md-table-cell>
               </md-table-row>
-              <md-table-row>
-                <md-table-cell :colspan="6">
+              <md-table-row v-if="showChart == clube.id">
+                <md-table-cell :colspan="7">
                   <clube-chart v-bind:data="clube" :height="70"></clube-chart>
                 </md-table-cell>
               </md-table-row>
@@ -70,16 +75,7 @@
       return {
         clubes: [],
         errors: [],
-        datachart: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-          datasets: [
-            {
-              label: 'GitHub Commits',
-              backgroundColor: '#f87979',
-              data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
-            }
-          ]
-        }
+        showChart: 0
       }
     },
     created () {
@@ -94,6 +90,9 @@
     methods: {
       sortBy (sort) {
         this.clubes = _.orderBy(this.clubes, [item => item.pontos[sort.name]], sort.type)
+      },
+      selectItem (item) {
+        this.showChart = item.id !== this.showChart ? item.id : 0
       }
     }
   }
