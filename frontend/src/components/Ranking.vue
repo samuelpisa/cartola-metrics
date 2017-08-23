@@ -6,8 +6,8 @@
         <h1 class="md-title">Ranking de clubes por pontuação do Cartola FC</h1>
         <md-button-toggle md-single class="md-primary">
           <md-button class="md-toggle">Todos os jogos</md-button>
-          <md-button disabled>Jogos em casa</md-button>
-          <md-button disabled>Jogos Fora</md-button>
+          <md-button disabled>Mandante</md-button>
+          <md-button disabled>Visitante</md-button>
         </md-button-toggle>
       </md-toolbar>
 
@@ -24,14 +24,21 @@
           </md-table-header>
 
           <md-table-body>
-            <md-table-row v-for="(clube, index) in clubes">
-              <md-table-cell md-numeric>{{index+1}}</md-table-cell>
-              <md-table-cell class="clube-cell"><img :src="clube.escudos.pequeno"/> {{clube.nome}}</md-table-cell>
-              <md-table-cell md-numeric>{{clube.pontos.mediaPontos | formatNumber}}</md-table-cell>
-              <md-table-cell md-numeric>{{clube.pontos.totalPontos | formatNumber}}</md-table-cell>
-              <md-table-cell md-numeric>{{clube.pontos.mediaCedidos | formatNumber}}</md-table-cell>
-              <md-table-cell md-numeric>{{clube.pontos.totalCedidos | formatNumber}}</md-table-cell>
-            </md-table-row>
+            <template v-for="(clube, index) in clubes">
+              <md-table-row >
+                <md-table-cell md-numeric>{{index+1}}</md-table-cell>
+                <md-table-cell class="clube-cell"><img :src="clube.escudos.pequeno"/> {{clube.nome}}</md-table-cell>
+                <md-table-cell md-numeric>{{clube.pontos.mediaPontos | formatNumber}}</md-table-cell>
+                <md-table-cell md-numeric>{{clube.pontos.totalPontos | formatNumber}}</md-table-cell>
+                <md-table-cell md-numeric>{{clube.pontos.mediaCedidos | formatNumber}}</md-table-cell>
+                <md-table-cell md-numeric>{{clube.pontos.totalCedidos | formatNumber}}</md-table-cell>
+              </md-table-row>
+              <md-table-row>
+                <md-table-cell :colspan="6">
+                  <clube-chart v-bind:data="clube" :height="70"></clube-chart>
+                </md-table-cell>
+              </md-table-row>
+            </template>
           </md-table-body>
         </md-table>
     </md-table-card>
@@ -43,6 +50,7 @@
   import axios from 'axios'
   import numeral from 'numeral'
   import _ from 'lodash'
+  import ClubeChart from './ClubeChart'
 
   numeral.register('locale', 'pt-BR', {
     delimiters: {
@@ -56,12 +64,22 @@
   })
 
   export default {
-    components: {},
+    components: { ClubeChart },
     name: 'ranking',
     data () {
       return {
         clubes: [],
-        errors: []
+        errors: [],
+        datachart: {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+          datasets: [
+            {
+              label: 'GitHub Commits',
+              backgroundColor: '#f87979',
+              data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+            }
+          ]
+        }
       }
     },
     created () {
