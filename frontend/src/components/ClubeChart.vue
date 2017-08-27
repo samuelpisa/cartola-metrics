@@ -15,11 +15,11 @@
 
   function formatData (clube) {
     return {
-      labels: clube.rodadas.map(e => e.id),
+      labels: clube.rodadas.filter(e => e.valida).map(e => e.id),
       datasets: [
         {
           label: 'Pontos',
-          data: clube.rodadas.map(e => e.pontos),
+          data: clube.rodadas.filter(e => e.valida).map(e => e.pontos),
           fill: false,
           borderColor: '#24ab19',
           backgroundColor: '#24ab19',
@@ -29,7 +29,7 @@
         },
         {
           label: 'Pontos Cedidos',
-          data: clube.rodadas.map(e => e.pontosCedidos),
+          data: clube.rodadas.filter(e => e.valida).map(e => e.pontosCedidos),
           fill: false,
           borderColor: '#f87979',
           backgroundColor: '#f87979',
@@ -38,7 +38,7 @@
         },
         {
           label: 'Média',
-          data: clube.rodadas.map(e => clube.pontos.mediaPontos),
+          data: clube.rodadas.filter(e => e.valida).map(e => clube.pontos.mediaPontos),
           fill: false,
           borderColor: '#3f51b5',
           backgroundColor: '#3f51b5',
