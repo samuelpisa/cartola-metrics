@@ -62,6 +62,27 @@ public class RodadaTotalService {
     }
 
     public void totalizarClube(){
+        List<Clube> clubes = clubeRepo.findAll();
+
+        List<PontosClubeResult> totalPontos = totalPontosClubes();
+        List<PontosClubeResult> totalMandante = totalPontosClubesMandante();
+        List<PontosClubeResult> totalVisitante = totalPontosClubesVisitante();
+
+        clubes.forEach(c -> {
+            PontosClubeResult pc = totalPontos.stream().filter(f -> Objects.equals(f.getId(), c.getId())).findFirst().get();
+            c.setPontos(new PontoClube(pc.getMediaPontos(), pc.getTotalPontos(), pc.getMediaCedidos(), pc.getTotalCedidos()));
+
+            PontosClubeResult pm = totalMandante.stream().filter(f -> Objects.equals(f.getId(), c.getId())).findFirst().get();
+            c.setMandante(new PontoClube(pm.getMediaPontos(), pm.getTotalPontos(), pm.getMediaCedidos(), pm.getTotalCedidos()));
+
+            PontosClubeResult pv = totalVisitante.stream().filter(f -> Objects.equals(f.getId(), c.getId())).findFirst().get();
+            c.setVisitante(new PontoClube(pv.getMediaPontos(), pv.getTotalPontos(), pv.getMediaCedidos(), pv.getTotalCedidos()));
+            clubeRepo.save(c);
+        });
+
+    }
+
+    private List<PontosClubeResult> totalPontosClubes(){
         Aggregation agg = newAggregation(
                 unwind("rodadas"),
                 match(where("rodadas.valida").is(true)),
@@ -71,18 +92,36 @@ public class RodadaTotalService {
                         .avg("rodadas.pontosCedidos").as("mediaCedidos")
                         .sum("rodadas.pontosCedidos").as("totalCedidos")
         );
-
         AggregationResults<PontosClubeResult> groupResults = mongoTemplate.aggregate(agg, Clube.class, PontosClubeResult.class);
-        List<PontosClubeResult> results = groupResults.getMappedResults();
+        return groupResults.getMappedResults();
+    }
 
-        List<Clube> clubes = clubeRepo.findAll();
+    private List<PontosClubeResult> totalPontosClubesMandante(){
+        Aggregation agg = newAggregation(
+                unwind("rodadas"),
+                match(where("rodadas.valida").is(true).andOperator(where("rodadas.casa").is(true))),
+                group("id")
+                        .avg("rodadas.pontos").as("mediaPontos")
+                        .sum("rodadas.pontos").as("totalPontos")
+                        .avg("rodadas.pontosCedidos").as("mediaCedidos")
+                        .sum("rodadas.pontosCedidos").as("totalCedidos")
+        );
+        AggregationResults<PontosClubeResult> groupResults = mongoTemplate.aggregate(agg, Clube.class, PontosClubeResult.class);
+        return groupResults.getMappedResults();
+    }
 
-        clubes.forEach(c -> {
-            PontosClubeResult pc = results.stream().filter(f -> Objects.equals(f.getId(), c.getId())).findFirst().get();
-            c.setPontos(new PontoClube(pc.getMediaPontos(), pc.getTotalPontos(), pc.getMediaCedidos(), pc.getTotalCedidos()));
-            clubeRepo.save(c);
-        });
-
+    private List<PontosClubeResult> totalPontosClubesVisitante(){
+        Aggregation agg = newAggregation(
+                unwind("rodadas"),
+                match(where("rodadas.valida").is(true).andOperator(where("rodadas.casa").is(false))),
+                group("id")
+                        .avg("rodadas.pontos").as("mediaPontos")
+                        .sum("rodadas.pontos").as("totalPontos")
+                        .avg("rodadas.pontosCedidos").as("mediaCedidos")
+                        .sum("rodadas.pontosCedidos").as("totalCedidos")
+        );
+        AggregationResults<PontosClubeResult> groupResults = mongoTemplate.aggregate(agg, Clube.class, PontosClubeResult.class);
+        return groupResults.getMappedResults();
     }
 
     private void adicionaRodada(Clube clube, RodadaClube rodada) {
