@@ -1,21 +1,35 @@
 <script>
   import { Line } from 'vue-chartjs'
+  import numeral from 'numeral'
 
   export default Line.extend({
-    props: ['data', 'options'],
-    options: {
-      animation: {
-        duration: 0
-      }
-    },
+    props: ['data'],
     mounted () {
-      this.renderChart(formatData(this.data), this.options)
+      this.renderChart(formatData(this.data),
+        {
+          legend: {
+            display: false
+          },
+          tooltips: {
+            mode: 'nearest',
+            callbacks: {
+              title: function (item, data) {
+                let comp = item[0].xLabel.replace('v', '- Visitante')
+                comp = comp.replace('m', '- Mandante')
+                return 'Rodada ' + comp
+              },
+              label: function (item, data) {
+                return data.datasets[item.datasetIndex].label + ' ' + numeral(item.yLabel).format('0.00')
+              }
+            }
+          }
+        })
     }
   })
 
   function formatData (clube) {
     return {
-      labels: clube.rodadas.filter(e => e.valida).map(e => e.id),
+      labels: clube.rodadas.filter(e => e.valida).map(e => e.id + (e.casa ? ' m' : ' v')),
       datasets: [
         {
           label: 'Pontos',
