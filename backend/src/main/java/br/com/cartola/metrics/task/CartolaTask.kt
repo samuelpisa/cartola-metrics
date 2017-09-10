@@ -55,7 +55,7 @@ class CartolaTask(private val rodadaService: RodadaMercadoService) {
     private fun callPartidas(rodadaId: Int): PartidasResponse {
         log.info("Partidas")
         return try {
-            RestTemplate().getForObject("https://api.cartolafc.globo.com/partidas/" + rodadaId!!, PartidasResponse::class.java)
+            RestTemplate().getForObject("https://api.cartolafc.globo.com/partidas/" + rodadaId, PartidasResponse::class.java)
         } catch (e: Exception) {
             log.error("Partidas: {}", e)
             PartidasResponse()
