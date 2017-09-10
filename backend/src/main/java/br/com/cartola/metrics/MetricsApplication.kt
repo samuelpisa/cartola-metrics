@@ -6,9 +6,9 @@ import org.springframework.scheduling.annotation.EnableScheduling
 
 @SpringBootApplication
 @EnableScheduling
-open class MetricsApplication {
+open class MetricsApplication
 
     fun main(args: Array<String>) {
         SpringApplication.run(MetricsApplication::class.java, *args)
     }
-}
+
