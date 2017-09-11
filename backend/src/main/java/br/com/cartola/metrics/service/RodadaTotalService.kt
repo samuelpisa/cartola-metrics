@@ -61,7 +61,6 @@ class RodadaTotalService {
     }
 
     private fun adicionaRodada(clube: Clube, rodada: RodadaClube){
-        if(clube.rodadas == null) clube.rodadas = listOf()
         clube.rodadas.removeIf { r -> r.id == rodada.id }
         clube.rodadas.add(rodada)
 
