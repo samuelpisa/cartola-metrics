@@ -17,13 +17,13 @@ class Clube {
     var pontos: PontoClube? = null
     var mandante: PontoClube? = null
     var visitante: PontoClube? = null
-    var rodadas: MutableList<RodadaClube> = mutableListOf<RodadaClube>()
+    var rodadas: MutableList<RodadaClube> = mutableListOf()
 }
 
 class RodadaClube {
     var id: Int? = null
-    var pontos: Double? = null
-    var pontosCedidos: Double? = null
+    var pontos: Double = 0.0
+    var pontosCedidos: Double = 0.0
     var casa: Boolean = true
     var valida: Boolean = true
 }

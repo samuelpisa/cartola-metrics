@@ -41,7 +41,7 @@ class RodadaTotalService {
             val rodadaTotal: RodadaTotalResults = results.first { r -> r.id == c.id }
             val rodadaClube: RodadaClube = RodadaClube()
             rodadaClube.id = rodadaId
-            rodadaClube.pontos = rodadaTotal.total
+            rodadaClube.pontos = rodadaTotal.total ?: 0.0
             rodadaClube.valida = findPartida(rodadaAtual, c).valida
             rodadaClube.casa = findPartida(rodadaAtual, c).clube_casa_id == c.id
             rodadaClube.pontosCedidos = getPontosCedidos(results, rodadaClube.casa, findPartida(rodadaAtual, c))
