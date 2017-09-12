@@ -38,10 +38,10 @@ class RodadaTotalService {
         val rodadaAtual = rodadaRepo.findOne(rodadaId)
 
         clubes.forEach { c ->
-            val rodadaTotal: RodadaTotalResults = results.first { r -> r.id == c.id }
-            val rodadaClube: RodadaClube = RodadaClube()
+            val rodadaTotal: RodadaTotalResults = results.first{ (id) -> id == c.id }
+            val rodadaClube = RodadaClube()
             rodadaClube.id = rodadaId
-            rodadaClube.pontos = rodadaTotal.total ?: 0.0
+            rodadaClube.pontos = rodadaTotal.total
             rodadaClube.valida = findPartida(rodadaAtual, c).valida
             rodadaClube.casa = findPartida(rodadaAtual, c).clube_casa_id == c.id
             rodadaClube.pontosCedidos = getPontosCedidos(results, rodadaClube.casa, findPartida(rodadaAtual, c))
@@ -56,8 +56,8 @@ class RodadaTotalService {
             rodada.partidas.first { p -> p.clube_casa_id == clube.id || p.clube_visitante_id == clube.id }
 
     private fun getPontosCedidos(resultados: List<RodadaTotalResults>, casa: Boolean, partida: Partida): Double {
-        val adversarioId: Int = if (casa) partida.clube_visitante_id else partida.clube_casa_id
-        return resultados.first{ (id) -> id == adversarioId}.total ?: 0.0
+        val adversarioId: Int = if (casa) partida.clube_visitante_id!! else partida.clube_casa_id!!
+        return resultados.first{ (id) -> id == adversarioId}.total
     }
 
     private fun adicionaRodada(clube: Clube, rodada: RodadaClube){

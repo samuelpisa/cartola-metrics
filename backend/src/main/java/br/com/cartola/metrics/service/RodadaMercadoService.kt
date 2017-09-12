@@ -18,7 +18,7 @@ class RodadaMercadoService(
 
     fun adicionarRodada(atletas: List<Atleta>, partidas: List<Partida>) {
 
-        val rodadaId: Int = atletas.first().rodada_id
+        val rodadaId: Int = atletas.first().rodada_id ?: 0
         log.info("Adicionar rodada: {}", rodadaId)
 
         if (rodadaRepo.count() < rodadaId) {

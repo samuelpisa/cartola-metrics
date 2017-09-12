@@ -24,7 +24,7 @@ class CartolaTask(private val rodadaService: RodadaMercadoService) {
         if (mercadoResponse.status_mercado == 1L && atletasResponse.atletas.first().scout != null) {
             log.info("Mercado Aberto")
 
-            val rodadaId = atletasResponse.atletas.first().rodada_id
+            val rodadaId: Int = atletasResponse.atletas.first().rodada_id ?: 0
             rodadaService.adicionarRodada(atletasResponse.atletas, callPartidas(rodadaId).partidas)
         } else {
             log.info("Mercado Fechado")

@@ -27,3 +27,16 @@ class RodadaClube {
     var casa: Boolean = true
     var valida: Boolean = true
 }
+
+class Escudo {
+    var pequeno: String? = null
+    var medio: String? = null
+    var grande: String? = null
+}
+
+class PontoClube(
+        var mediaPontos: Double,
+        var totalPontos: Double,
+        var mediaCedidos: Double,
+        var totalCedidos: Double
+)
