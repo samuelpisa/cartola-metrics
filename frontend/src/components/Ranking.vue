@@ -5,7 +5,7 @@
       <md-toolbar>
         <h1>Ranking de clubes por pontuação do Cartola FC</h1>
         <span style="flex: 1"></span>
-        <h4>Rodada {{clubes[0].rodadas[clubes[0].rodadas.length -1].id}} - 2017</h4>
+        <h4 v-if="clubes[0]">Rodada {{clubes[0].rodadas[clubes[0].rodadas.length -1].id}} - 2017</h4>
       </md-toolbar>
 
         <md-table md-sort="pontos.mediaPontos" md-sort-type="desc" @sort="sortBy">
