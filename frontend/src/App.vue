@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <md-toolbar class="md-medium md-warn">
+    <!--<md-toolbar class="md-medium md-warn">
       <div class="md-toolbar-container">
         <h1 class="md-display-2 toolbar-title" style="flex: 1;">Cartola Top</h1>
       </div>
-    </md-toolbar>
+    </md-toolbar>-->
     <ranking></ranking>
   </div>
 </template>
