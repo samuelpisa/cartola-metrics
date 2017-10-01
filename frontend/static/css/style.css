@@ -9,6 +9,10 @@ html, body {
   margin-top: 30px;
 }
 
+.md-layout {
+  margin: 10px;
+}
+
 .mdl-demo .mdl-layout__header-row {
   padding-left: 40px;
 }
