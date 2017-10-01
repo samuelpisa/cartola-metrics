@@ -8,23 +8,18 @@
       <div class="mdl-layout--large-screen-only mdl-layout__header-row">
         </div>
       <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
-       <!-- <a href="/" class="mdl-layout__tab is-active">Início</a>
-        <a href="/ranking-clubes#" class="mdl-layout__tab">Ranking de Clubes</a>
-        <a href="/analise-rodada" class="mdl-layout__tab">Análise da Rodada</a>
-        <a href="/escalacao-inteligente" class="mdl-layout__tab">Escalação Inteligente</a>
-        <a href="/sobre" class="mdl-layout__tab">Sobre</a>-->
 
         <router-link :to="{ name: 'Hello' }" class="mdl-layout__tab">Início</router-link>
         <router-link :to="{ name: 'Ranking' }" class="mdl-layout__tab">Ranking de Clubes</router-link>
+        <router-link :to="{ name: 'Rodada' }" class="mdl-layout__tab">Análise da Rodada</router-link>
+        <router-link :to="{ name: 'Escalacao' }" class="mdl-layout__tab">Escalação Inteligente</router-link>
+        <router-link :to="{ name: 'Sobre' }" class="mdl-layout__tab">Sobre</router-link>
         
-
-
       </div>
     </header>
     <main class="mdl-layout__content">
 
-
-    <router-view></router-view>
+      <router-view></router-view>
 
       <footer class="mdl-mega-footer">
         <div class="mdl-mega-footer--middle-section">
@@ -32,11 +27,11 @@
             <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
             <h1 class="mdl-mega-footer--heading">Site</h1>
             <ul class="mdl-mega-footer--link-list">
-              <li><a href="/">Início</a></li>
-              <li><a href="#">Ranking de Clubes</a></li>
-              <li><a href="#">Análise da Rodada</a></li>
-              <li><a href="#">Escalação Inteligente</a></li>
-              <li><a href="#">Sobre</a></li>
+              <li><router-link :to="{ name: 'Hello' }">Início</router-link></li>
+              <li><router-link :to="{ name: 'Ranking' }">Ranking de Clubes</router-link></li>
+              <li><router-link :to="{ name: 'Rodada' }">Análise da Rodada</router-link></li>
+              <li><router-link :to="{ name: 'Escalacao' }">Escalação Inteligente</router-link></li>
+              <li><router-link :to="{ name: 'Sobre' }">Sobre</router-link></li>
             </ul>
           </div>
           <div class="mdl-mega-footer--drop-down-section">
