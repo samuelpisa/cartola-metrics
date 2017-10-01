@@ -1,8 +1,15 @@
 <template>
-  <div>
-      <p>Analise da Rodada</p>
+  <md-layout md-align="center">
+    <md-layout>
 
-  </div>
+    <md-card>
+      <md-card-content>
+        <p>Em breve.</p>
+      </md-card-content>
+    </md-card>
+
+    </md-layout>
+  </md-layout>
 </template>
 
 <script>
