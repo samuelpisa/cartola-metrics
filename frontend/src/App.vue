@@ -1,29 +1,80 @@
 <template>
   <div id="app">
-    <!--<md-toolbar class="md-medium md-warn">
-      <div class="md-toolbar-container">
-        <h1 class="md-display-2 toolbar-title" style="flex: 1;">Cartola Top</h1>
+   
+    <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+      <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        <h2>Cartola Top</h2>
       </div>
-    </md-toolbar>-->
-    <ranking></ranking>
+      <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        </div>
+      <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
+       <!-- <a href="/" class="mdl-layout__tab is-active">Início</a>
+        <a href="/ranking-clubes#" class="mdl-layout__tab">Ranking de Clubes</a>
+        <a href="/analise-rodada" class="mdl-layout__tab">Análise da Rodada</a>
+        <a href="/escalacao-inteligente" class="mdl-layout__tab">Escalação Inteligente</a>
+        <a href="/sobre" class="mdl-layout__tab">Sobre</a>-->
+
+        <router-link :to="{ name: 'Hello' }" class="mdl-layout__tab">Início</router-link>
+        <router-link :to="{ name: 'Ranking' }" class="mdl-layout__tab">Ranking de Clubes</router-link>
+        
+
+
+      </div>
+    </header>
+    <main class="mdl-layout__content">
+
+
+    <router-view></router-view>
+
+      <footer class="mdl-mega-footer">
+        <div class="mdl-mega-footer--middle-section">
+          <div class="mdl-mega-footer--drop-down-section">
+            <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
+            <h1 class="mdl-mega-footer--heading">Site</h1>
+            <ul class="mdl-mega-footer--link-list">
+              <li><a href="/">Início</a></li>
+              <li><a href="#">Ranking de Clubes</a></li>
+              <li><a href="#">Análise da Rodada</a></li>
+              <li><a href="#">Escalação Inteligente</a></li>
+              <li><a href="#">Sobre</a></li>
+            </ul>
+          </div>
+          <div class="mdl-mega-footer--drop-down-section">
+            <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
+            <h1 class="mdl-mega-footer--heading">Sobre</h1>
+            <ul class="mdl-mega-footer--link-list">
+              <li>O Cartola Top é um site com o objetivo de ajudar os jogadores de Cartola FC, com dicas e estatísticas
+                mais detalhadas e analíticas sobre os clubes e jogadores do Campeonato Brasileiro. 
+                <br>O Cartola Top não é afiliado ao Cartola FC.
+              </li>
+            </ul>
+          </div>
+          <div class="mdl-mega-footer--drop-down-section">
+            <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
+            <h1 class="mdl-mega-footer--heading">Contato</h1>
+            <ul class="mdl-mega-footer--link-list">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+        <div class="mdl-mega-footer--bottom-section">
+          <div class="mdl-logo">
+            Cartola Top. Todos os direitos reservados. &#9400; 2017
+          </div>
+        </div>
+      </footer>
+    </main>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
-import Ranking from './components/Ranking'
-
 export default {
-  name: 'app',
-  components: {
-    Hello,
-    Ranking
-  }
+  name: 'app'
 }
 </script>
 
 <style>
-#app {
+/*#app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -31,5 +82,5 @@ export default {
 }
   .toolbar-title {
     color: #ffffff !important;
-  }
+  }*/
 </style>

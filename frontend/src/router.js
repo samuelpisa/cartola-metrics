@@ -6,6 +6,7 @@ import Ranking from './components/Ranking'
 Vue.use(Router)
 
 export default new Router({
+  linkExactActiveClass: 'is-active',
   routes: [
     {
       path: '/',

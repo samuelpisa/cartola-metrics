@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
 import App from './App'
-import router from './routes'
+import router from './router'
 
 /* eslint-disable no-new */
 Vue.use(VueMaterial)
