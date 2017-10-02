@@ -23,7 +23,7 @@
           </md-card-header-text>
         </md-card-header>
         <md-card-media md-ratio="16:9" md-medium>
-          <img src="static//img//ranking-card.png">
+          <img src="static/img/ranking-card.png">
         </md-card-media>
         <md-card-content>
           <p>
@@ -42,7 +42,7 @@
           </md-card-header-text>
         </md-card-header>
         <md-card-media md-ratio="16:9" md-medium>
-          <img src="static//img//campo-card.png">
+          <img src="static/img/campo-card.png">
         </md-card-media>
         <md-card-content>
         </md-card-content>
@@ -57,7 +57,7 @@
           </md-card-header-text>
         </md-card-header>
         <md-card-media md-ratio="16:9" md-medium>
-          <img src="static//img//campo-card.png">
+          <img src="static/img/campo-card.png">
         </md-card-media>
         <md-card-content>
         </md-card-content>
