@@ -8,7 +8,7 @@
       this.renderChart(formatData(this.data),
         {
           legend: {
-            display: false
+            display: true
           },
           tooltips: {
             mode: 'nearest',
@@ -52,12 +52,13 @@
         },
         {
           label: 'Média',
-          data: clube.rodadas.filter(e => e.valida).map(e => clube.pontos.mediaPontos),
+          data: clube.rodadas.filter(e => e.valida).map(
+            (e, i) => clube.rodadas.filter(e => e.valida).slice(0, i + 1).map(e => e.pontos).reduce((a, b) => a + b) / (i + 1)
+            ),
           fill: false,
           borderColor: '#3f51b5',
           backgroundColor: '#3f51b5',
           lineTension: 0,
-          pointRadius: 0,
           borderWidth: 2
         }
       ]
