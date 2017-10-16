@@ -7,9 +7,9 @@ import br.com.cartola.metrics.service.dto.PontosClubeResult
 import br.com.cartola.metrics.service.dto.RodadaTotalResults
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.mongodb.core.MongoTemplate
-import org.springframework.stereotype.Component
 import org.springframework.data.mongodb.core.aggregation.Aggregation.*
 import org.springframework.data.mongodb.core.query.Criteria.where
+import org.springframework.stereotype.Component
 
 @Component
 class RodadaTotalService {

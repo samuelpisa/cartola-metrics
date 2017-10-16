@@ -3,16 +3,17 @@ package br.com.cartola.metrics.task
 import br.com.cartola.metrics.model.cartola.AtletasResponse
 import br.com.cartola.metrics.model.cartola.MercadoResponse
 import br.com.cartola.metrics.model.cartola.PartidasResponse
+import br.com.cartola.metrics.service.AnaliseRodadaService
 import br.com.cartola.metrics.service.RodadaMercadoService
-import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 
 @Component
-class CartolaTask(private val rodadaService: RodadaMercadoService) {
+class CartolaTask(
+        private val rodadaService: RodadaMercadoService,
+        private val analiseService: AnaliseRodadaService) {
 
     @Scheduled(fixedRate = (1000 * 60 * 60).toLong())
     fun checkMercado() {
@@ -30,6 +31,17 @@ class CartolaTask(private val rodadaService: RodadaMercadoService) {
             log.info("Mercado Fechado")
         }
         log.info("= Fim Check de Mercado =")
+    }
+
+    @Scheduled(fixedRate = (1000 * 60 * 60).toLong())
+    fun checkPartidas() {
+        log.info("= Inicio Check de Partidas =")
+
+        val mercadoResponse = callMercado()
+        val partidas = callPartidas(mercadoResponse.rodada_atual.toInt())
+        analiseService.gerarAnalise(partidas)
+
+        log.info("= Fim Check de Partidas =")
     }
 
     private fun callMercado(): MercadoResponse {
