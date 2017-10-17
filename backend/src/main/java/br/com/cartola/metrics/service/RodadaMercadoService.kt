@@ -21,7 +21,7 @@ class RodadaMercadoService(
         val rodadaId: Int = atletas.first().rodada_id ?: 0
         log.info("Adicionar rodada: {}", rodadaId)
 
-        if (rodadaRepo.count() < rodadaId) {
+        if (!rodadaRepo.exists(rodadaId)) {
             val rodada = Rodada()
             rodada.atletas = atletas
             rodada.partidas = partidas
