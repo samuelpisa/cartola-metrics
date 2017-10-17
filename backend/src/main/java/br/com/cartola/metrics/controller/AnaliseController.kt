@@ -16,7 +16,7 @@ class AnaliseController(private val mongoTemplate: MongoTemplate) {
     @ResponseBody
     private fun analise(): AnaliseRodada {
         val query = Query()
-        query.with(Sort(Sort.Direction.DESC, "rodada_id"))
+        query.with(Sort(Sort.Direction.DESC, "_id"))
         query.limit(1)
         var analise = mongoTemplate.findOne(query, AnaliseRodada::class.java)
         analise.partidas.sortByDescending { it.diferencaPontos }
