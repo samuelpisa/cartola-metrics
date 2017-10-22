@@ -18,5 +18,7 @@ class AnalisePartida {
     var local: String? = null
     var valida: Boolean = true
     var seloCasa: Boolean = true
-    var diferencaPontos: Double? = null
+    var vantagemCasa: Double = 0.0
+    var vantagemVisitante: Double = 0.0
+    var diferencaPontos: Double = 0.0
 }

@@ -38,13 +38,32 @@ class AnaliseRodadaService(
             analise.partidas.add(analisePartida)
         }
 
+        calculaVantagem(analise.partidas)
+
         analiseRepository.save(analise)
     }
 
     private fun calcularDiferencaPontos(casa: Clube, visitante: Clube): Double? {
-        val pontosCasa = (casa.pontos?.mediaPontos ?: 0.0) + (casa.mandante?.mediaPontos ?: 0.0)
-        val pontosVisi = (visitante.pontos?.mediaPontos ?: 0.0) + (visitante.visitante?.mediaPontos ?: 0.0)
+        val rodadasAnalisar = 6
+
+        val pontosCasa = casa.rodadas.filter {it.valida}.takeLast(rodadasAnalisar).sumByDouble { it.pontos } +
+                casa.rodadas.filter { it.valida && it.casa }.takeLast(rodadasAnalisar).sumByDouble { it.pontos }
+
+        val pontosVisi = visitante.rodadas.filter {it.valida}.takeLast(rodadasAnalisar).sumByDouble { it.pontos } +
+                visitante.rodadas.filter { it.valida && !it.casa }.takeLast(rodadasAnalisar).sumByDouble { it.pontos }
+
         return pontosCasa - pontosVisi
+    }
+
+    private fun calculaVantagem(partidas: List<AnalisePartida>) {
+        val maxDiff = partidas.map { Math.abs(it.diferencaPontos) }.sortedDescending().first()
+
+        partidas.filter{it.valida}.forEach{ p ->
+            if(p.seloCasa)
+                p.vantagemCasa = p.diferencaPontos / maxDiff * 100
+            else
+                p.vantagemVisitante = Math.abs(p.diferencaPontos) / maxDiff * 100
+        }
     }
 
 }
