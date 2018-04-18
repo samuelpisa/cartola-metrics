@@ -76,10 +76,10 @@ class RodadaTotalService {
             val pc = totalPontos.first { (id) -> id == c.id }
             c.pontos = PontoClube(pc.mediaPontos, pc.totalPontos, pc.mediaCedidos, pc.totalCedidos)
 
-            val pm = totalMandante.first { (id) -> id == c.id }
+            val pm = totalMandante.firstOrNull { (id) -> id == c.id } ?: PontosClubeResult(id = c.id)
             c.mandante = PontoClube(pm.mediaPontos, pm.totalPontos, pm.mediaCedidos, pm.totalCedidos)
 
-            val pv = totalVisitante.first { (id) -> id == c.id }
+            val pv = totalVisitante.firstOrNull() { (id) -> id == c.id } ?: PontosClubeResult(id = c.id)
             c.visitante = PontoClube(pv.mediaPontos, pv.totalPontos, pv.mediaCedidos, pv.totalCedidos)
 
             clubeRepo.save(c)

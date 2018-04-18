@@ -6,6 +6,9 @@ import br.com.cartola.metrics.model.cartola.PartidasResponse
 import br.com.cartola.metrics.service.AnaliseRodadaService
 import br.com.cartola.metrics.service.RodadaMercadoService
 import org.slf4j.LoggerFactory
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpMethod
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
@@ -47,7 +50,12 @@ class CartolaTask(
     private fun callMercado(): MercadoResponse {
         log.info("Mercado Status")
         return try {
-            RestTemplate().getForObject("https://api.cartolafc.globo.com/mercado/status", MercadoResponse::class.java)
+            val rest = RestTemplate()
+            val headers = HttpHeaders()
+            headers.set("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36")
+            val entity = HttpEntity("", headers)
+            val response = rest.exchange<MercadoResponse>("https://api.cartolafc.globo.com/mercado/status", HttpMethod.GET, entity, MercadoResponse::class.java)
+            return response.body
         } catch (e: Exception) {
             log.error("Mercado Status: {}", e)
             MercadoResponse()
@@ -57,7 +65,12 @@ class CartolaTask(
     private fun callMercadoAtletas(): AtletasResponse {
         log.info("Mercado Atletas")
         return try {
-            RestTemplate().getForObject("https://api.cartolafc.globo.com/atletas/mercado", AtletasResponse::class.java)
+            val rest = RestTemplate()
+            val headers = HttpHeaders()
+            headers.set("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36")
+            val entity = HttpEntity("", headers)
+            val response = rest.exchange<AtletasResponse>("https://api.cartolafc.globo.com/atletas/mercado", HttpMethod.GET, entity, AtletasResponse::class.java)
+            return response.body
         } catch (e: Exception) {
             log.error("Mercado Atletas: {}", e)
             AtletasResponse()
@@ -67,7 +80,12 @@ class CartolaTask(
     private fun callPartidas(rodadaId: Int): PartidasResponse {
         log.info("Partidas")
         return try {
-            RestTemplate().getForObject("https://api.cartolafc.globo.com/partidas/" + rodadaId, PartidasResponse::class.java)
+            val rest = RestTemplate()
+            val headers = HttpHeaders()
+            headers.set("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36")
+            val entity = HttpEntity("", headers)
+            val response = rest.exchange<PartidasResponse>("https://api.cartolafc.globo.com/partidas/$rodadaId", HttpMethod.GET, entity, PartidasResponse::class.java)
+            return response.body
         } catch (e: Exception) {
             log.error("Partidas: {}", e)
             PartidasResponse()

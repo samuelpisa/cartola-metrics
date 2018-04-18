@@ -5,7 +5,7 @@
       <md-toolbar>
         <h3>Ranking de clubes por pontuação do Cartola FC</h3>
         <span style="flex: 1"></span>
-        <h5 v-if="clubes[0]">Rodada {{clubes[0].rodadas[clubes[0].rodadas.length -1].id}} - 2017</h5>
+        <h5 v-if="clubes[0]">Rodada {{clubes[0].rodadas[clubes[0].rodadas.length -1].id}} - 2018</h5>
       </md-toolbar>
 
         <md-table md-sort="pontos.mediaPontos" md-sort-type="desc" @sort="sortBy">
@@ -24,7 +24,7 @@
               <md-table-head class="title-cell" md-sort-by="visitante.mediaPontos" md-tooltip="Média de Pontos como Visitante">
                 Pontos (Visitante)</md-table-head>
               <md-table-head class="title-cell" md-sort-by="visitante.mediaCedidos" md-tooltip="Média de Pontos Cedidos como Visitante">Cedidos (Visitante)</md-table-head>
-              
+
             </md-table-row>
           </md-table-header>
 
