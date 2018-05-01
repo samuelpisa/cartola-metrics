@@ -25,6 +25,7 @@ class Atleta {
     var media_num: Double? = null
     var jogos_num: Int? = null
     var scout: Scout? = null
+    var peso: Double? = null
 }
 
 
@@ -48,4 +49,21 @@ class Scout {
     var fc: Int? = null
     var i: Int? = null
     var pe: Int? = null
+}
+
+enum class Posicao(val id: Int) {
+    GOLEIRO(1),
+    LATERAL(2),
+    ZAGUEIRO(3),
+    MEIA(4),
+    ATACANTE(5),
+    TECNICO(6)
+}
+
+enum class Status(val id: Int) {
+    DUVIDA(2),
+    SUSPENSO(3),
+    CONTUNDIDO(5),
+    NULO(6),
+    PROVAVEL(7)
 }
