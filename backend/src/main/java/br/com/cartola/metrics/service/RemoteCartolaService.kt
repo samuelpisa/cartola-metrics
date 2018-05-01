@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate
 class RemoteCartolaService {
 
     fun callMercado(): MercadoResponse {
-        log.info("Mercado Status")
+        log.info("Mercado Status {}", URL_MERCADO)
         return try {
             val rest = RestTemplate()
             val headers = HttpHeaders()
@@ -29,7 +29,7 @@ class RemoteCartolaService {
     }
 
     fun callMercadoAtletas(): AtletasResponse {
-        log.info("Mercado Atletas")
+        log.info("Mercado Atletas {}", URL_ATLETAS)
         return try {
             val rest = RestTemplate()
             val headers = HttpHeaders()
@@ -44,7 +44,7 @@ class RemoteCartolaService {
     }
 
     fun callPartidas(rodadaId: Int): PartidasResponse {
-        log.info("Partidas")
+        log.info("Partidas {}", URL_PARTIDAS)
         return try {
             val rest = RestTemplate()
             val headers = HttpHeaders()
