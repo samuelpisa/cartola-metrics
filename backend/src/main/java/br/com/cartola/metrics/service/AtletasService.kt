@@ -5,7 +5,6 @@ import br.com.cartola.metrics.model.AnaliseRodada
 import br.com.cartola.metrics.model.Atleta
 import br.com.cartola.metrics.model.Status
 import br.com.cartola.metrics.repository.AnaliseAtletaRepository
-import br.com.cartola.metrics.repository.AnaliseRodadaRepository
 import org.springframework.data.domain.Sort
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.query.Query
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Component
 @Component
 class AtletasService(
         private val repository: AnaliseAtletaRepository,
-        private val analiseRodadaRepository: AnaliseRodadaRepository,
         private val mongoTemplate: MongoTemplate
 ) {
 
@@ -31,7 +29,7 @@ class AtletasService(
         val query = Query()
         query.with(Sort(Sort.Direction.DESC, "_id"))
         query.limit(1)
-        var analiseRodada = mongoTemplate.findOne(query, AnaliseRodada::class.java)
+        val analiseRodada = mongoTemplate.findOne(query, AnaliseRodada::class.java)
 
         analiseRodada.partidas.filter { it.valida }.forEach {
             val vantagemPair = if (it.vantagemCasa.compareTo(it.vantagemVisitante) == 1)
@@ -40,8 +38,10 @@ class AtletasService(
 
             provaveis
                     .filter { it.clube_id == vantagemPair.second }
-                    .forEach { it.peso = it.peso?.times(1 + vantagemPair.first / 2 / 100) }
+                    .forEach { it.peso = it.peso?.times(1 + vantagemPair.first / 1.5 / 100) }
         }
+
+        //mais escalados
 
         // salva no banco
         val analise = AnaliseAtleta()
