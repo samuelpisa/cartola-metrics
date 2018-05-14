@@ -1,23 +1,49 @@
 package br.com.cartola.metrics.service
 
 import br.com.cartola.metrics.model.AnaliseAtleta
+import br.com.cartola.metrics.model.AnaliseRodada
 import br.com.cartola.metrics.model.Atleta
 import br.com.cartola.metrics.model.Status
 import br.com.cartola.metrics.repository.AnaliseAtletaRepository
+import br.com.cartola.metrics.repository.AnaliseRodadaRepository
+import org.springframework.data.domain.Sort
+import org.springframework.data.mongodb.core.MongoTemplate
+import org.springframework.data.mongodb.core.query.Query
 import org.springframework.stereotype.Component
 
 @Component
 class AtletasService(
-        private val repository: AnaliseAtletaRepository
+        private val repository: AnaliseAtletaRepository,
+        private val analiseRodadaRepository: AnaliseRodadaRepository,
+        private val mongoTemplate: MongoTemplate
 ) {
 
     fun gerarAtletas(atletas: List<Atleta>, rodadaAtual: Long) {
 
+        //so provaveis
         val provaveis = atletas
                 .filter { it.status_id == Status.PROVAVEL.id }
 
-        provaveis.forEach { it.peso = getMedia(it) * (1 + getJogos(it).toDouble() / 38) }
+        //media + jogos
+        provaveis.forEach { it.peso = getMedia(it) * (1 + getJogos(it).toDouble() / 100) }
 
+        // analise da rodada
+        val query = Query()
+        query.with(Sort(Sort.Direction.DESC, "_id"))
+        query.limit(1)
+        var analiseRodada = mongoTemplate.findOne(query, AnaliseRodada::class.java)
+
+        analiseRodada.partidas.filter { it.valida }.forEach {
+            val vantagemPair = if (it.vantagemCasa.compareTo(it.vantagemVisitante) == 1)
+                Pair(it.vantagemCasa, it.clubeCasa!!.id)
+            else Pair(it.vantagemVisitante, it.clubeVisitante!!.id)
+
+            provaveis
+                    .filter { it.clube_id == vantagemPair.second }
+                    .forEach { it.peso = it.peso?.times(1 + vantagemPair.first / 2 / 100) }
+        }
+
+        // salva no banco
         val analise = AnaliseAtleta()
         analise.atletas = provaveis.sortedByDescending { it.peso }.toMutableList()
         analise.rodada_id = rodadaAtual.toInt()
