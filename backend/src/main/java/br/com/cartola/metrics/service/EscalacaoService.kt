@@ -22,7 +22,7 @@ class EscalacaoService(
         val analiseAtleta = mongoTemplate.findOne(query, AnaliseAtleta::class.java)
         val atletas = analiseAtleta.atletas
 
-        val medioTime = atletas.sumByDouble { it.preco_num!! } / atletas.size * 13
+        val medioTime = atletas.sumByDouble { it.preco_num!! } / atletas.size * 12
         val limite = if (cartoletas > medioTime) 2 else 1
 
         if (cartoletas < medioTime / 2)
