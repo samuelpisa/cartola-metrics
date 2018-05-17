@@ -23,7 +23,7 @@ class AtletasService(
                 .filter { it.status_id == Status.PROVAVEL.id }
 
         //media + jogos
-        provaveis.forEach { it.peso = getMedia(it) * (1 + getJogos(it).toDouble() / 100) }
+        provaveis.forEach { it.peso = getMedia(it) * (2 + getJogos(it).toDouble() / 100) }
 
         // analise da rodada
         val query = Query()
@@ -38,7 +38,7 @@ class AtletasService(
 
             provaveis
                     .filter { it.clube_id == vantagemPair.second }
-                    .forEach { it.peso = it.peso?.times(1 + vantagemPair.first / 1.5 / 100) }
+                    .forEach { it.peso = it.peso?.times(1 + vantagemPair.first / 100) }
         }
 
         //mais escalados
