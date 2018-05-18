@@ -23,7 +23,11 @@ class EscalacaoService(
         val atletas = analiseAtleta.atletas
 
         val medioTime = atletas.sumByDouble { it.preco_num!! } / atletas.size * 12
-        val limite = if (cartoletas > medioTime) 2 else 1
+        val limite = when {
+            cartoletas > medioTime -> 2
+            cartoletas > medioTime + (medioTime / 2) -> 3
+            else -> 1
+        }
 
         if (cartoletas < medioTime / 2)
             return mutableListOf()

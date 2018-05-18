@@ -18,7 +18,7 @@ class EscalacaoController(
     private fun analise(@RequestParam("cartoletas") cartoletas: Double): List<AtletaEscalacaoResponse>? {
 
         val escalacoes = mutableListOf<List<Atleta>>()
-        (1..200).forEach {
+        (1..400).forEach {
             escalacoes.add(escalacaoService.escalar(cartoletas))
         }
 
