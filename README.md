@@ -7,3 +7,10 @@
 **TODO**
 -
 - Sugestão de times
+
+**Contributers**
+
+- Euclides
+- Gabriel 
+- Jacquier
+- Modesto
